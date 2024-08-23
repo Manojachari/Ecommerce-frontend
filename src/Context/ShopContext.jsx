@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 // import all_product from '../Components/Assets/all_product';
-import Product from "../Pages/Product";
 
 export const ShopContext =  createContext(null);
 
@@ -18,13 +17,14 @@ const ShopContextProvider =(props)=>{
     const [cartItems,setCartItems]=useState(getDefaultCart());
 
     useEffect(()=>{
-        fetch('http://localhost:4000/allproducts')
+        fetch('https://ecommerce-backend-zcib.onrender.com/allproducts')
         .then((response)=>response.json())
-        .then((data)=>setAll_Product(data))
+        .then((data)=>setAll_Product(data));
+
 
         if(localStorage.getItem('auth-token'))
         {
-            fetch('http://localhost:4000/getcart',{
+            fetch('https://ecommerce-backend-zcib.onrender.com/getcart',{
                 method:"POST",
                 headers:{
                     Accept:"application/form-data",
@@ -40,7 +40,7 @@ const ShopContextProvider =(props)=>{
     const addToCart=(itemid)=>{
         setCartItems((prev)=>({...prev,[itemid]:prev[itemid]+1}))
         if(localStorage.getItem('auth-token')){
-            fetch('http://localhost:4000/addtocart',{
+            fetch('https://ecommerce-backend-zcib.onrender.com/addtocart',{
                 method:"POST",
                 headers:{
                     Accept:"application/form-data",
@@ -57,7 +57,7 @@ const ShopContextProvider =(props)=>{
     const removeFromCart=(itemid)=>{
         setCartItems((prev)=>({...prev,[itemid]:prev[itemid]-1}))
         if(localStorage.getItem('auth-token')){
-            fetch('http://localhost:4000/removefromcart',{
+            fetch('https://ecommerce-backend-zcib.onrender.com/removefromcart',{
                 method:"POST",
                 headers:{
                     Accept:"application/form-data",
@@ -79,7 +79,7 @@ const ShopContextProvider =(props)=>{
         {
             if(cartItems[item]>0){
                 let itemInfo=all_product.find((product)=>product.id===Number(item))
-                totalAmount+=itemInfo.new_price * cartItems[item];
+                // totalAmount+=itemInfo.new_price * cartItems[item];
             }
         }
         return totalAmount;
