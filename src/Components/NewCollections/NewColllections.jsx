@@ -9,7 +9,6 @@ const NewColllections = () => {
     fetch('https://ecommerce-backend-zcib.onrender.com/newcollections')
     .then((response)=>response.json())
     .then((data)=>setNew_collection(data));
-    console.log(new_collection)
   },[])
 
   return (
